@@ -9,13 +9,14 @@ import { KEY } from '../apis/key';
 class App extends React.Component {
   state = { masteries: [] };
 
-  onTermSubmit = async term => {
-    const summoner = await summoner_v4.get('/by-name/' + term + '?api_key=' + KEY);
-    console.log(summoner.data.id);
+  onTermSubmit = async searchedName => {
+    const summoner = await summoner_v4.get('/by-name/' + searchedName + '?api_key=' + KEY);
     let mastery = await champion_mastery_v4.get('/champion-masteries/by-summoner/'+ summoner.data.id + '?api_key=' + KEY);
-    /*
-let data3 = await champion.get('champion.json');
-    console.log(data3);*/
+
+    //let champ = await champion.get('champion.json');
+    //console.log(champ.data.data);
+
+
     this.setState({ masteries: mastery.data })
     console.log(this.state);
   };
@@ -24,7 +25,7 @@ let data3 = await champion.get('champion.json');
     return (
       <div className="ui container">
         <SearchBar onFormSubmit={this.onTermSubmit} />
-        <MasteriesList />
+        <MasteriesList masteries={this.state.masteries} />
       </div>
     );
   }

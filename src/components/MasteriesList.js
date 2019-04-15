@@ -1,11 +1,14 @@
 import React from 'react';
+import MasteriesItem from './MasteriesItem';
 
-class MasteriesList extends React.Component {
-  render() {
-    return (
-      <div>Khoe diem thong thao</div>
-    );
-  }
+const MasteriesList = ({ masteries }) => {
+  const renderedList = masteries.map((mastery) => {
+    return <MasteriesItem mastery={mastery}/>;
+  });
+
+  return (
+    <div>{renderedList}</div>
+  );
 }
 
 export default MasteriesList;
